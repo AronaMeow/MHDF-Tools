@@ -283,7 +283,8 @@ public final class VaultEconomyProvider extends AbstractEconomy {
         if (tax.signum() > 0) {
             player.sendMessage(LangSetting.getInstance().getConfig().economy().tax()
                     .replace("{amount}", tax.toPlainString())
-                    .replace("{money_name}", ConfigSetting.getInstance().getConfig().moneyName()));
+                    .replace("{money_name}", ConfigSetting.getInstance().getConfig().moneyName())
+                    .asComponent());
         }
         return new EconomyResponse(amount, player.getMoney().doubleValue(), EconomyResponse.ResponseType.SUCCESS, null);
     }

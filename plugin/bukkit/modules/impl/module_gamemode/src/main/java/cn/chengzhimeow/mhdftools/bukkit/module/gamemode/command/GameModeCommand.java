@@ -83,7 +83,7 @@ final class GameModeCommand extends Command {
 
             target.setGameMode(gameMode);
             if (!sender.equals(target)) sender.sendMessage(message);
-            mhdfTarget.sendMessage(message);
+            mhdfTarget.sendMessage(message.asComponent());
         } else {
             // 修改跨服玩家游戏模式
             if (!BungeeCordManager.getInstance().isBungeeCordMode()) return;
@@ -95,7 +95,7 @@ final class GameModeCommand extends Command {
                     new GameModeMessage(BungeeCordManager.getInstance().getServerName(), targetName, gameMode.name())
             );
             sender.sendMessage(message);
-            MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(targetName).sendMessage(message);
+            MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(targetName).sendMessage(message.asComponent());
         }
     }
 

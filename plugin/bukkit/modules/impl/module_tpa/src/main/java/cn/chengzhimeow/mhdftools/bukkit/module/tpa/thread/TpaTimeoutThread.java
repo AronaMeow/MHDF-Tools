@@ -21,9 +21,11 @@ public final class TpaTimeoutThread {
             MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(playerName);
             MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(targetName);
             player.sendMessage(LangSetting.getInstance().getConfig().commands().tpa().delay().message()
-                    .replace("{player}", targetName));
+                    .replace("{player}", targetName)
+                    .asComponent());
             target.sendMessage(LangSetting.getInstance().getConfig().commands().tpa().delay().timeOut()
-                    .replace("{player}", playerName));
+                    .replace("{player}", playerName)
+                    .asComponent());
         }, timeout * 1000L);
     }
 

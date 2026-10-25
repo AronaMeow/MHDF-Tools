@@ -65,8 +65,8 @@ public final class AtService {
         LangSetting.Config.Chat.At.AtTitle title = LangSetting.getInstance().getConfig().chat().at().title();
 
         player.showTitle(Title.title(
-                title.title().replace("{by}", by),
-                title.subtitle().replace("{by}", by),
+                title.title().replace("{by}", by).asComponent(),
+                title.subtitle().replace("{by}", by).asComponent(),
                 Title.Times.times(
                         Duration.ofMillis(title.in() * 50L),
                         Duration.ofMillis(title.step() * 50L),

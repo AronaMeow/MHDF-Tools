@@ -46,8 +46,7 @@ public final class TpaHereService {
         MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(targetName);
         if (target.isIgnore(player)) return;
 
-        target.sendMessage(LangSetting.getInstance().getConfig().commands().tpahere().requestMessage()
-                .replaceByMiniMessage("{player}", sender.getName()));
+        target.sendMessage(LangSetting.getInstance().requestMessage(sender.getName()).asComponent());
     }
 
     private TpaHereService() {

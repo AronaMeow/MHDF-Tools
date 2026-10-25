@@ -9,6 +9,7 @@ import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.config.impl.ProxySetting;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -46,14 +47,11 @@ final class MHDFTools extends Command {
                     if (page < 1) page = 1;
                     if (page > maxPage) page = maxPage;
 
-                    sender.sendMessage(LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().feature().message()
+                    sender.sendMessage(LangSetting.getInstance().featureMessage(label, page - 1, page + 1)
                             .replace("{help_list}", this.getFeatureHelpMessage(page, commands.entrySet()))
                             .replace("{page}", String.valueOf(page))
                             .replace("{max_page}", String.valueOf(maxPage))
-                            .replaceByMiniMessage("{last_page}", String.valueOf(page - 1))
-                            .replaceByMiniMessage("{next_page}", String.valueOf(page + 1))
-                            .replaceByMiniMessage("{command}", label)
-                    );
+                    .asComponent());
                     return;
                 }
                 case "modules" -> {
@@ -72,7 +70,7 @@ final class MHDFTools extends Command {
                     sender.sendMessage(LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().modules().message()
                             .replace("{load_modules}", loadModules.toString())
                             .replace("{unload_modules}", unloadModules.toString())
-                    );
+                    .asComponent());
                     return;
                 }
                 case "reload" -> {
@@ -87,7 +85,7 @@ final class MHDFTools extends Command {
 
                     sender.sendMessage(LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().reload().message()
                             .replace("{command}", label)
-                    );
+                    .asComponent());
                     return;
                 }
             }
@@ -96,7 +94,7 @@ final class MHDFTools extends Command {
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().mhdftools().subCommands().help().message()
                 .replace("{help_list}", this.getHelpMessage(label))
                 .replace("{command}", label)
-        );
+        .asComponent());
     }
 
     @Override
@@ -135,7 +133,7 @@ final class MHDFTools extends Command {
     }
 
     private Component getFeatureHelpMessage(int page, Set<Map.Entry<String, Command>> commands) {
-        if (commands.isEmpty()) return new TextComponent();
+        if (commands.isEmpty()) return Component.empty();
 
         int start = (page - 1) * 4;
         int end = Math.min(commands.size(), start + 4);
@@ -147,7 +145,7 @@ final class MHDFTools extends Command {
 
             builder = builder.append(LangSetting.getInstance().getConfig().commandInfoFormat()
                     .replace("{usage}", "/" + command.getKey())
-                    .replace("{description}", command.getValue().getDescription()));
+                    .replace("{description}", command.getValue().getDescription().asComponent()));
 
             if (list.size() == i - 1) continue;
             builder = builder.appendNewline();

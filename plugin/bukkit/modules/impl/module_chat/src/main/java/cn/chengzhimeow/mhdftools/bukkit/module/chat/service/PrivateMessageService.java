@@ -44,7 +44,8 @@ public final class PrivateMessageService {
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().msg().send()
                 .replace("{player}", sender.getName())
                 .replace("{target}", target)
-                .replace("{message}", component));
+                .replace("{message}", component)
+        .asComponent());
 
         if (mhdfPlayer != null) {
             MHDFToolsPlayer mhdfTargetPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(target);
@@ -58,7 +59,7 @@ public final class PrivateMessageService {
 
         Player targetPlayer = Bukkit.getPlayerExact(target);
         if (targetPlayer != null) {
-            targetPlayer.sendMessage(receive);
+            targetPlayer.sendMessage(receive.asComponent());
             return;
         }
 

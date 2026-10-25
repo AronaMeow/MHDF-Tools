@@ -5,6 +5,9 @@ import cn.chengzhimeow.mhdftools.config.AbstractLangSetting;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
 
 public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
     @Getter(lazy = true)
@@ -34,7 +37,7 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
                                 super.component("commands.tpahere.usage", prefix),
                                 super.component("commands.tpahere.description", prefix),
                                 super.component("commands.tpahere.message", prefix),
-                                super.component("commands.tpahere.request_message", prefix),
+                                super.raw("commands.tpahere.request_message"),
                                 super.component("commands.tpahere.in_delay", prefix),
                                 super.component("commands.tpahere.no_request", prefix),
                                 super.component("commands.tpahere.send_self", prefix),
@@ -55,6 +58,23 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
         );
     }
 
+    /**
+     * 发给被请求方的那条带"接受/拒绝"按钮的消息。
+     *
+     * <p>{player} 必须在解析前按原文填进去：按钮的 {@code <click:run_command:"/tpahere accept {player}">}
+     * 里占位符属于命令字符串，解析后再也换不掉，玩家点上去就发出 {@code /tpahere accept {player}}。
+     *
+     * @param player 发起请求的玩家名(纯文本)
+     * @return 带按钮的消息文本
+     */
+    public TextComponent requestMessage(@NotNull String player) {
+        return super.filled(
+                this.config.commands().tpahere().requestMessageTemplate(),
+                GlobalLangSetting.getInstance().getConfig().prefix(),
+                Map.of("player", player)
+        );
+    }
+
     public record Config(
             Commands commands
     ) {
@@ -65,7 +85,7 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
                     TextComponent usage,
                     TextComponent description,
                     TextComponent message,
-                    TextComponent requestMessage,
+                    String requestMessageTemplate,
                     TextComponent inDelay,
                     TextComponent noRequest,
                     TextComponent sendSelf,

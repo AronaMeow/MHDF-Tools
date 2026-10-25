@@ -131,11 +131,11 @@ final class Stop extends Command {
      */
     private void confirmStop() {
         Bukkit.broadcast(LangSetting.getInstance().getConfig().commands().stop().countdown()
-                .replace("{countdown}", this.time.toString()));
+                .replace("{countdown}", this.time.toString()).asComponent());
         this.stop = true;
 
         new CCRunnable(CCScheduler.getInstance()) {
-            private final Component message = Stop.this.message;
+            private final Component message = Stop.this.message.asComponent();
             private int countdown = Stop.this.time;
 
             @Override
@@ -153,7 +153,7 @@ final class Stop extends Command {
                         Bukkit.savePlayers();
 
                         Component kickMessage = LangSetting.getInstance().getConfig().commands().stop().kickMessage()
-                                .replace("{message}", message);
+                                .replace("{message}", message).asComponent();
                         for (Player player : Bukkit.getOnlinePlayers()) {
                             player.kick(kickMessage);
                         }
@@ -165,7 +165,7 @@ final class Stop extends Command {
 
                 if (ConfigSetting.getInstance().getConfig().countdown().showMessageTime().contains(countdown)) {
                     Bukkit.broadcast(LangSetting.getInstance().getConfig().commands().stop().countdown()
-                            .replace("{countdown}", String.valueOf(countdown)));
+                            .replace("{countdown}", String.valueOf(countdown)).asComponent());
                 }
                 countdown--;
             }

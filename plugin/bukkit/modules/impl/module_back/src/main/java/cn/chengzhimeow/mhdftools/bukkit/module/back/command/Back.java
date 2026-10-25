@@ -63,7 +63,7 @@ final class Back extends Command {
         }
 
         player.teleport(backDataList.getFirst().toBungeeCordLocation());
-        player.sendMessage(LangSetting.getInstance().getConfig().commands().back().message());
+        player.sendMessage(LangSetting.getInstance().getConfig().commands().back().message().asComponent());
     }
 
     @Override

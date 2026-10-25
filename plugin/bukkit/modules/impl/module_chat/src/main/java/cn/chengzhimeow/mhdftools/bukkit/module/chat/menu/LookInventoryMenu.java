@@ -22,7 +22,7 @@ public final class LookInventoryMenu extends AbstractMenu {
 
     @Override
     protected @NotNull Inventory buildInventory() {
-        Inventory inventory = Bukkit.createInventory(this, 54, ColorUtil.color(LangSetting.getInstance().getConfig().commands().lookInventory().title()));
+        Inventory inventory = Bukkit.createInventory(this, 54, ColorUtil.color(LangSetting.getInstance().getConfig().commands().lookInventory().title()).asComponent());
         this.items.forEach((slot, item) -> {
             if (slot >= 0 && slot < inventory.getSize()) inventory.setItem(slot, item);
         });

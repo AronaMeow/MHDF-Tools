@@ -39,7 +39,7 @@ public final class TpaMenu extends AbstractPageMenu {
     @Override
     protected @NotNull Inventory buildInventory() {
         TpaMenuSetting.Config config = TpaMenuSetting.getInstance().getConfig();
-        Inventory inventory = Bukkit.createInventory(this, Math.max(config.slots().size(), 1) * 9, config.title());
+        Inventory inventory = Bukkit.createInventory(this, Math.max(config.slots().size(), 1) * 9, config.title().asComponent());
         List<String> playerList = BungeeCordManager.getInstance().getPlayerList();
         List<Integer> playerSlots = this.slots(config.keys().player());
         int start = (super.getPage() - 1) * playerSlots.size();

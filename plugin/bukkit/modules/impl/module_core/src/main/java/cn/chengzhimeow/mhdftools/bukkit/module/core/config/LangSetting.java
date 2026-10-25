@@ -5,6 +5,9 @@ import cn.chengzhimeow.mhdftools.config.AbstractLangSetting;
 import cn.chengzhimeow.mhdftools.config.impl.GlobalLangSetting;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
 
 public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
     @Getter(lazy = true)
@@ -43,7 +46,7 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
                                         new Config.Commands.MHDFTools.SubCommands.Feature(
                                                 super.component("commands.mhdftools.sub_commands.feature.usage", prefix),
                                                 super.component("commands.mhdftools.sub_commands.feature.description", prefix),
-                                                super.component("commands.mhdftools.sub_commands.feature.message", prefix)
+                                                super.raw("commands.mhdftools.sub_commands.feature.message")
                                         ),
                                         new Config.Commands.MHDFTools.SubCommands.Modules(
                                                 super.component("commands.mhdftools.sub_commands.modules.usage", prefix),
@@ -57,6 +60,31 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
                                         )
                                 )
                         )
+                )
+        );
+    }
+
+    /**
+     * <code>/{command} feature</code> 的那条带翻页按钮的帮助消息。
+     *
+     * <p>{command}、{last_page}、{next_page} 写在 {@code <click:run_command:"/{command} feature {last_page}">}
+     * 的命令字符串里，解析之后就换不掉了(点了会发出带着字面量占位符的命令)，
+     * 所以这几个要在解析前按原文填好。{help_list}、{page}、{max_page} 只在正文里出现，
+     * 由调用方继续做组件级替换。
+     *
+     * @param command  主命令名(纯文本)
+     * @param lastPage 上一页页码
+     * @param nextPage 下一页页码
+     * @return 帮助消息文本
+     */
+    public TextComponent featureMessage(@NotNull String command, int lastPage, int nextPage) {
+        return super.filled(
+                this.config.commands().mhdftools().subCommands().feature().messageTemplate(),
+                GlobalLangSetting.getInstance().getConfig().prefix(),
+                Map.of(
+                        "command", command,
+                        "last_page", String.valueOf(lastPage),
+                        "next_page", String.valueOf(nextPage)
                 )
         );
     }
@@ -89,7 +117,7 @@ public final class LangSetting extends AbstractLangSetting<LangSetting.Config> {
                     public record Feature(
                             TextComponent usage,
                             TextComponent description,
-                            TextComponent message
+                            String messageTemplate
                     ) {
                     }
 

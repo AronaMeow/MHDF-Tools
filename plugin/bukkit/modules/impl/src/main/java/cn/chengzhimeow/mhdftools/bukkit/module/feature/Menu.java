@@ -83,6 +83,10 @@ public abstract class Menu implements InventoryHolder {
 
     /**
      * 打开菜单
+     * <p>
+     * 菜单内容在菜单线程中构建，真正打开容器必须回到玩家所在的区域线程，
+     * 否则 Folia 会抛出 "Cannot init menu async" 主线程检查异常，
+     * 导致客户端只收到开窗包、收不到内容同步包，GUI 打开后是空的。
      */
     public void openMenu() {
         if (!this.isEnable()) return;
@@ -90,8 +94,9 @@ public abstract class Menu implements InventoryHolder {
         MenuThread.getInstance().execute(() -> {
             Inventory menu = this.getInventory();
 
-            CCScheduler.getInstance().getGlobalRegionScheduler().runTask(
+            CCScheduler.getInstance().getEntityScheduler().runTask(
                     MHDFToolsBukkit.getInstance(),
+                    this.player,
                     () -> this.player.openInventory(menu)
             );
         });

@@ -52,8 +52,8 @@ final class FlyTime extends Task {
         if (message == null) return;
 
         player.showTitle(Title.title(
-                message.title(),
-                message.subtitle(),
+                message.title().asComponent(),
+                message.subtitle().asComponent(),
                 Title.Times.times(
                         Duration.ofMillis(message.in() * 50L),
                         Duration.ofMillis(message.step() * 50L),

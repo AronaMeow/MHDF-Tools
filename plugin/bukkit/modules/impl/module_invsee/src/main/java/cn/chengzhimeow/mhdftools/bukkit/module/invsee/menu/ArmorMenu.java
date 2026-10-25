@@ -43,7 +43,7 @@ public final class ArmorMenu extends Menu {
         ArmorMenuSetting.Config config = ArmorMenuSetting.getInstance().getConfig();
         NamespacedKey idKey = new NamespacedKey(MHDFToolsBukkit.getInstance(), "id");
         NamespacedKey armorSlotKey = new NamespacedKey(MHDFToolsBukkit.getInstance(), "invsee_armor_slot");
-        Inventory inventory = Bukkit.createInventory(this, Math.max(config.slots().size(), 1) * 9, config.title().replace("{player}", this.target.getName()));
+        Inventory inventory = Bukkit.createInventory(this, Math.max(config.slots().size(), 1) * 9, config.title().replace("{player}", this.target.getName()).asComponent());
         Map<String, Object> params = new HashMap<>();
         params.put("target", this.target);
         params.put("target_name", this.target.getName());

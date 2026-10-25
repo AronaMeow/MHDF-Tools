@@ -113,11 +113,11 @@ public final class HomeMenuSetting extends AbstractYamlSetting<HomeMenuSetting.C
                         this.id,
                         this.by,
                         this.type,
-                        this.name == null ? null : ColorUtil.color(this.replace(this.name, placeholders)),
+                        this.name == null ? null : ColorUtil.color(this.replace(this.name, placeholders)).asComponent(),
                         this.lore.stream()
                                 .map(line -> this.replace(line, placeholders))
                                 .map(ColorUtil::color)
-                                .map(component -> (Component) component)
+                                .map(component -> component.asComponent())
                                 .toList(),
                         this.customModelData,
                         this.amount,

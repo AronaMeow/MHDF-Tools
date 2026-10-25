@@ -61,7 +61,7 @@ public final class CommandRegisterManager {
 
         command.setAliases(Arrays.asList(abstractCommand.getCommands()));
         command.setPermission(abstractCommand.getPermission());
-        command.permissionMessage(GlobalLangSetting.getInstance().getConfig().noPermission());
+        command.permissionMessage(GlobalLangSetting.getInstance().getConfig().noPermission().asComponent());
 
         command.setExecutor(abstractCommand);
         command.setTabCompleter(abstractCommand);

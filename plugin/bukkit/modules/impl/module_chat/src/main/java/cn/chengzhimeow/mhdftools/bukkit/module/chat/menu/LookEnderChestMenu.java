@@ -22,7 +22,7 @@ public final class LookEnderChestMenu extends AbstractMenu {
 
     @Override
     protected @NotNull Inventory buildInventory() {
-        Inventory inventory = Bukkit.createInventory(this, 27, ColorUtil.color(LangSetting.getInstance().getConfig().commands().lookEnderChest().title()));
+        Inventory inventory = Bukkit.createInventory(this, 27, ColorUtil.color(LangSetting.getInstance().getConfig().commands().lookEnderChest().title()).asComponent());
         this.items.forEach((slot, item) -> {
             if (slot >= 0 && slot < inventory.getSize()) inventory.setItem(slot, item);
         });

@@ -59,9 +59,9 @@ public final class MHDFToolsPlayerImpl implements MHDFToolsPlayer {
         Player player = this.getPlayer();
         if (player == null) return;
 
-        player.displayName(name);
-        player.customName(name);
-        player.playerListName(name);
+        player.displayName(name.asComponent());
+        player.customName(name.asComponent());
+        player.playerListName(name.asComponent());
         player.setCustomNameVisible(name != null);
     }
 

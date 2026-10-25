@@ -33,7 +33,7 @@ public final class CustomMenu extends AbstractMenu {
 
     @Override
     protected @NotNull Inventory buildInventory() {
-        Inventory inventory = Bukkit.createInventory(this, Math.max(this.config.slots().size(), 1) * 9, this.config.title());
+        Inventory inventory = Bukkit.createInventory(this, Math.max(this.config.slots().size(), 1) * 9, this.config.title().asComponent());
         Player player = this.getPlayer();
         Map<String, Object> params = this.params();
 

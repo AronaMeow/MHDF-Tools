@@ -61,7 +61,8 @@ final class Home extends Command {
 
         player.teleport(player.getHome(args[0]).toBungeeCordLocation());
         player.sendMessage(LangSetting.getInstance().getConfig().commands().home().message()
-                .replace("{home}", args[0]));
+                .replace("{home}", args[0])
+                .asComponent());
     }
 
     @Override

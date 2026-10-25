@@ -42,7 +42,7 @@ final class Spawn extends Command {
 
         MHDFToolsPlayer mhdfPlayer = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender.getUniqueId(), sender.getName());
         mhdfPlayer.teleport(SpawnSetting.getInstance().getConfig().location());
-        mhdfPlayer.sendMessage(LangSetting.getInstance().getConfig().commands().spawn().message());
+        mhdfPlayer.sendMessage(LangSetting.getInstance().getConfig().commands().spawn().message().asComponent());
     }
 
     @Override

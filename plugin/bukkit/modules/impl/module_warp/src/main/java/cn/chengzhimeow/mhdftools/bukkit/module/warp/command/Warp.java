@@ -72,7 +72,8 @@ final class Warp extends Command {
 
         targetMhdfPlayer.teleport(MHDFToolsAPI.getInstance().getWarpDataManager().get(args[0]).toBungeeCordLocation());
         targetMhdfPlayer.sendMessage(LangSetting.getInstance().getConfig().commands().warp().message()
-                .replace("{warp}", args[0]));
+                .replace("{warp}", args[0])
+                .asComponent());
     }
 
     @Override

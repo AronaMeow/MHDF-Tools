@@ -85,7 +85,8 @@ final class TpaHere extends Command {
         MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender.getUniqueId(), sender.getName());
         target.teleport(player);
         player.sendMessage(LangSetting.getInstance().getConfig().commands().tpahere().accept().accepted()
-                .replace("{player}", target.getName()));
+                .replace("{player}", target.getName())
+                .asComponent());
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().tpahere().accept().message()
                 .replace("{player}", player.getName()));
     }
@@ -103,7 +104,8 @@ final class TpaHere extends Command {
         MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(playerName);
         MHDFToolsPlayer target = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(sender.getUniqueId(), sender.getName());
         player.sendMessage(LangSetting.getInstance().getConfig().commands().tpahere().reject().rejected()
-                .replace("{player}", target.getName()));
+                .replace("{player}", target.getName())
+                .asComponent());
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().tpahere().reject().message()
                 .replace("{player}", player.getName()));
     }

@@ -44,7 +44,7 @@ public final class BackMenu extends AbstractPageMenu {
     @Override
     protected @NotNull Inventory buildInventory() {
         BackMenuSetting.Config config = BackMenuSetting.getInstance().getConfig();
-        Inventory inventory = Bukkit.createInventory(this, Math.max(config.slots().size(), 1) * 9, config.title());
+        Inventory inventory = Bukkit.createInventory(this, Math.max(config.slots().size(), 1) * 9, config.title().asComponent());
         MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(super.getPlayer().getUniqueId(), super.getPlayer().getName());
         List<BackData> backList = player.getBackDataList(BackService.getMaxBack(super.getPlayer()));
         List<Integer> backSlots = this.slots(config.keys().location());
@@ -108,7 +108,7 @@ public final class BackMenu extends AbstractPageMenu {
             MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(super.getPlayer().getUniqueId(), super.getPlayer().getName());
             BackData backData = player.getBackData(Integer.parseInt(id));
             player.teleport(backData.toBungeeCordLocation());
-            player.sendMessage(LangSetting.getInstance().getConfig().commands().back().message());
+            player.sendMessage(LangSetting.getInstance().getConfig().commands().back().message().asComponent());
             return;
         }
 

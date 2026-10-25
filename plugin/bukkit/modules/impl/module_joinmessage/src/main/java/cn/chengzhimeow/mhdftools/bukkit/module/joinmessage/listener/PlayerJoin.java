@@ -57,7 +57,7 @@ final class PlayerJoin extends Listener {
                                 PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API,
                                 player, lastGroup.message()
                         )).replace("{player}", mhdfPlayer.getDisplayName())
-                )
+                ).asComponent()
         );
     }
 }

@@ -10,6 +10,7 @@ import cn.chengzhimeow.mhdftools.bukkit.module.chat.config.LangSetting;
 import cn.chengzhimeow.mhdftools.message.ColorUtil;
 import cn.chengzhimeow.mhdftools.text.TextComponent;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,6 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -60,7 +62,7 @@ public final class ChatService {
                 }
 
                 if (!replace.replaceWord().isBlank()) {
-                    component = component.replace(value, ColorUtil.color(replace.replaceWord()).replaceByMiniMessage("{value}", value));
+                    component = component.replace(value, ColorUtil.color(replace.replaceWord()).replace("{value}", MiniMessage.miniMessage().deserialize(value)));
                 }
             }
         }
@@ -122,14 +124,18 @@ public final class ChatService {
 
     /*
      * 套用聊天格式配置，并替换玩家名和消息组件。
+     * 占位符在解析成文本组件之前插入，这样 {player}/{message} 写在
+     * <gradient:...>、<rainbow> 这类逐字拆文的标签里也不会漏出占位符原文。
      */
     public static TextComponent formatMessage(Player player, MHDFToolsPlayer mhdfPlayer, TextComponent message) {
         ConfigSetting.Config.Format config = ConfigSetting.getInstance().getConfig().format();
         String format = config.enable() ? config.select(player).format() : "<{player}> {message}";
         String parsed = PlaceholderCompatibilityRegistry.getInstance().parseString(PlaceholderCompatibility.PlaceholderCompatibilityIds.PLACEHOLDER_API, player, format);
-        return ColorUtil.color(parsed)
-                .replace("{player}", mhdfPlayer.getDisplayName())
-                .replace("{message}", message);
+        String displayName = mhdfPlayer.getDisplayName();
+        return ColorUtil.color(parsed, Map.of(
+                "player", Component.text(displayName == null ? player.getName() : displayName),
+                "message", message
+        ));
     }
 
     /*

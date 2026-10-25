@@ -38,7 +38,7 @@ public final class HomeMenu extends AbstractPageMenu {
     @Override
     protected @NotNull Inventory buildInventory() {
         HomeMenuSetting.Config config = HomeMenuSetting.getInstance().getConfig();
-        Inventory inventory = Bukkit.createInventory(this, Math.max(config.slots().size(), 1) * 9, config.title());
+        Inventory inventory = Bukkit.createInventory(this, Math.max(config.slots().size(), 1) * 9, config.title().asComponent());
         MHDFToolsPlayer player = MHDFToolsAPI.getInstance().getPlayerManager().getPlayer(super.getPlayer().getUniqueId(), super.getPlayer().getName());
         List<HomeData> homeList = player.getHomeList();
         List<Integer> homeSlots = this.slots(config.keys().home());
@@ -99,7 +99,8 @@ public final class HomeMenu extends AbstractPageMenu {
 
             player.teleport(player.getHome(home).toBungeeCordLocation());
             player.sendMessage(LangSetting.getInstance().getConfig().commands().home().message()
-                    .replace("{home}", home));
+                    .replace("{home}", home)
+                    .asComponent());
             return;
         }
 

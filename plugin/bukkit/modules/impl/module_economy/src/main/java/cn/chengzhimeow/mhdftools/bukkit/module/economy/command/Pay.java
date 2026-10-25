@@ -74,7 +74,7 @@ final class Pay extends Command {
             TextComponent taxMessage = LangSetting.getInstance().getConfig().economy().tax()
                     .replace("{amount}", tax.toPlainString())
                     .replace("{money_name}", ConfigSetting.getInstance().getConfig().moneyName());
-            target.sendMessage(taxMessage);
+            target.sendMessage(taxMessage.asComponent());
         }
         BigDecimal received = amount.subtract(tax);
 
@@ -91,7 +91,7 @@ final class Pay extends Command {
                 .replace("{player}", source.getDisplayName())
                 .replace("{amount}", received.toPlainString())
                 .replace("{money_name}", ConfigSetting.getInstance().getConfig().moneyName());
-        target.sendMessage(receivedMessage);
+        target.sendMessage(receivedMessage.asComponent());
     }
 
     @Override

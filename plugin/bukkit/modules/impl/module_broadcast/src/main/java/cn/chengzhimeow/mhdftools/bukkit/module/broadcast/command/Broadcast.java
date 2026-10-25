@@ -49,7 +49,7 @@ final class Broadcast extends Command {
                         message.toJsonString()
                 ),
                 () -> {
-                    Bukkit.broadcast(message);
+                    Bukkit.broadcast(message.asComponent());
                 }
         );
     }

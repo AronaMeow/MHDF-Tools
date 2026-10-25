@@ -137,7 +137,7 @@ public final class MenuSetting extends AbstractFolderYamlManager {
 
         List<Component> lore = section.getStringList("lore").stream()
                 .map(ColorUtil::color)
-                .map(component -> (Component) component)
+                .map(component -> component.asComponent())
                 .toList();
 
         return new MenuItem(
@@ -145,7 +145,7 @@ public final class MenuSetting extends AbstractFolderYamlManager {
                 section.getString("slot"),
                 Objects.requireNonNull(section.getString("by", "Vanilla")),
                 Objects.requireNonNull(section.getString("type", "paper")),
-                section.getString("name") == null ? null : ColorUtil.color(section.getString("name")),
+                section.getString("name") == null ? null : ColorUtil.color(section.getString("name")).asComponent(),
                 lore,
                 section.getInt("custom_model_data", null),
                 section.getInt("amount"),

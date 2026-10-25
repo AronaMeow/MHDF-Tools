@@ -35,13 +35,14 @@ final class Crash extends Command {
         if (args.length != 1 && args.length != 2 && args.length != 3) {
             sender.sendMessage(GlobalLangSetting.getInstance().getConfig().usageError()
                     .replace("{usage}", LangSetting.getInstance().getConfig().commands().crash().usage())
-                    .replace("{command}", label));
+                    .replace("{command}", label)
+            .asComponent());
             return;
         }
 
         Player player = Bukkit.getPlayerExact(args[0]);
         if (player == null) {
-            sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerOffline());
+            sender.sendMessage(GlobalLangSetting.getInstance().getConfig().playerOffline().asComponent());
             return;
         }
 
@@ -50,7 +51,7 @@ final class Crash extends Command {
                       : args[1].toLowerCase();
 
         if (type == null || !CrashService.crashPlayerClient(player, type)) {
-            sender.sendMessage(LangSetting.getInstance().getConfig().commands().crash().noType());
+            sender.sendMessage(LangSetting.getInstance().getConfig().commands().crash().noType().asComponent());
             return;
         }
 
@@ -65,7 +66,8 @@ final class Crash extends Command {
 
         sender.sendMessage(LangSetting.getInstance().getConfig().commands().crash().message()
                 .replace("{player}", MHDFToolsBukkitAdapt.adapt(player).getDisplayName())
-                .replace("{type}", typeText));
+                .replace("{type}", typeText)
+        .asComponent());
     }
 
     @Override
